@@ -34,6 +34,10 @@ example for sentence tokenization:
 
 import nltk
 nltk.download('punkt')  # Download the Punkt tokenizer models
+
+What is Punkt?
+# Punkt is a pre-trained unsupervised machine learning model for tokenizing text into sentences and words. It is part of the NLTK library and is widely used for sentence segmentation in natural language processing tasks.
+
 from nltk.tokenize import sent_tokenize
 
 example_text = "Hello, world! This is a sample text for tokenization."
@@ -88,12 +92,152 @@ print(tokens)  # Output: ['Hello', 'world', 'This', 'is', 'a', 'sample', 'text',
 
 
 # 6. Whitespace Tokenization: Splitting text based on whitespace characters.
+
+example for whitespace tokenization:
+
+import nltk
+nltk.download('punkt')  # Download the Punkt tokenizer models
+from nltk.tokenize import word_tokenize
+
+example_text = "Hello, world! This is a sample text for tokenization."
+tokens = example_text.split()  # Whitespace tokenization
+print(tokens)  # Output: ['Hello,', 'world!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization.']
+# Output: ['Hello,', 'world!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization.']
+# Whitespace tokenization is a simple and efficient method for breaking text into words, but it may not handle punctuation or special characters effectively.
+
+
+
 # 7. Punctuation-based Tokenization: Splitting text based on punctuation marks.
+
+example for punctuation-based tokenization:
+
+import nltk
+nltk.download('punkt')  # Download the Punkt tokenizer models
+
+example_text = "Hello, world! This is a sample text for tokenization."
+tokens = re.findall(r'\w+', example_text)  # Punctuation-based tokenization
+print(tokens)  # Output: ['Hello', 'world', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization']
+# Output: ['Hello', 'world', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization']
+# Punctuation-based tokenization is useful for tasks where punctuation marks are significant, such as sentiment analysis or text classification.
+
 # 8. NLTK Tokenization: Using the Natural Language Toolkit library for tokenization.
+
+example for NLTK tokenization:
+
+import nltk
+nltk.download('punkt')  # Download the Punkt tokenizer models
+from nltk.tokenize import word_tokenize, sent_tokenize
+
+example_text = "Hello, world! This is a sample text for tokenization."
+tokens = word_tokenize(example_text)  # NLTK word tokenization
+print(tokens)  # Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization', '.']
+# Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization', '.']
+
+# Sentence tokenization using NLTK
+example_text = "Hello, world! This is a sample text for tokenization."
+tokens = sent_tokenize(example_text)  # NLTK sentence tokenization
+print(tokens)  # Output: ['Hello, world!', 'This is a sample text for tokenization.']
+# Output: ['Hello, world!', 'This is a sample text for tokenization.']
+# NLTK tokenization is a powerful and flexible method for breaking text into words and sentences, making it suitable for various NLP tasks.
+# NLTK provides pre-trained models for tokenization, making it easy to handle different languages and text formats.
+
+
 # 9. SpaCy Tokenization: Using the SpaCy library for tokenization.
+example for SpaCy tokenization:
+import spacy
+nlp = spacy.load("en_core_web_sm")  # Load the English model
+example_text = "Hello, world! This is a sample text for tokenization."
+doc = nlp(example_text)  # Process the text with SpaCy
+tokens = [token.text for token in doc]  # SpaCy tokenization
+print(tokens)  # Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization', '.']
+# Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization', '.']
+# SpaCy tokenization is efficient and provides additional features like part-of-speech tagging and named entity recognition, making it suitable for advanced NLP tasks.
+
+
 # 10. Custom Tokenization: Defining custom rules for tokenization based on specific requirements.
+
+example for custom tokenization:
+import re
+example_text = "Hello, world! This is a sample text for tokenization."
+custom_tokenizer = re.compile(r'\w+|\S')  # Custom regex for tokenization
+tokens = custom_tokenizer.findall(example_text)  # Custom tokenization
+print(tokens)  # Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization', '.']
+# Output: ['Hello', ',', 'world', '!', 'This', 'is', 'a', 'sample', 'text', 'for', 'tokenization', '.']
+# Custom tokenization allows for flexibility in defining token boundaries based on specific text characteristics or requirements.
+# Custom tokenization is useful for handling domain-specific text or when standard tokenization methods do not meet the requirements of a particular task.
+
+
 # 11. Tokenization in Machine Learning: Preparing text data for machine learning models.
+
+example for tokenization in machine learning:
+import re
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import make_pipeline
+from sklearn.metrics import accuracy_score
+
+example_text = [
+    "I love programming!",
+    "Python is great for data science.",
+    "Tokenization is essential for NLP.",
+    "Machine learning is fascinating.",
+    "Deep learning is a subset of machine learning."
+]   
+labels = [1, 1, 1, 0, 0]  # Labels for sentiment analysis (1: positive, 0: negative)
+df = pd.DataFrame({'text': example_text, 'label': labels})  # Create a DataFrame
+split_text = df['text'].apply(lambda x: re.findall(r'\w+', x))  # Tokenization
+split_text = split_text.apply(lambda x: ' '.join(x))  # Join tokens back into a string
+split_text = split_text.tolist()  # Convert to list
+new_labels = df['label'].tolist()  # Convert labels to list
+X_train, X_test, y_train, y_test = train_test_split(split_text, new_labels, test_size=0.2, random_state=42)  # Train-test split
+pipeline = make_pipeline(CountVectorizer(), MultinomialNB())  # Create a pipeline with CountVectorizer and Naive Bayes classifier
+pipeline.fit(X_train, y_train)  # Train the model
+predictions = pipeline.predict(X_test)  # Make predictions
+accuracy = accuracy_score(y_test, predictions)  # Calculate accuracy
+print(f"Accuracy: {accuracy:.2f}")  # Output: Accuracy: 1.00
+# Output: Accuracy: 1.00
+
+# Tokenization in machine learning is crucial for preparing text data for analysis and modeling.
+# It helps in converting unstructured text data into structured data that can be processed by machine learning algorithms.
+# Tokenization is often the first step in machine learning pipelines, as it allows for the extraction of features from text data.
+# Tokenization is essential for tasks like text classification, sentiment analysis, and topic modeling, where understanding the structure of text data is important.
+
+
+
 # 12. Tokenization in Deep Learning: Preparing text data for deep learning models.
+
+example for tokenization in deep learning:
+import re
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from keras.models import Sequential
+from keras.layers import Dense, Embedding, LSTM, SpatialDropout1D
+from keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import Tokenizer
+from sklearn.metrics import accuracy_score
+
+example_text = [
+    "I love programming!",
+    "Python is great for data science.",
+    "Tokenization is essential for NLP.",
+    "Machine learning is fascinating.",
+    "Deep learning is a subset of machine learning."
+]
+labels = [1, 1, 1, 0, 0]  # Labels for sentiment analysis (1: positive, 0: negative)
+df = pd.DataFrame({'text': example_text, 'label': labels})  # Create a DataFrame
+preprocessed_text = df['text'].apply(lambda x: re.findall(r'\w+', x))  # Tokenization
+preprocessed_text = preprocessed_text.apply(lambda x: ' '.join(x))  # Join tokens back into a string
+preprocessed_text = preprocessed_text.tolist()  # Convert to list
+preprocessed_labels = df['label'].tolist()  # Convert labels to list
+preprocessed_text = [text.lower() for text in preprocessed_text]  # Convert text to lowercase
+split_text = train_test_split(preprocessed_text, preprocessed_labels, test_size=0.2, random_state=42)  # Train-test split
+split_text = list(split_text)  # Convert to list
+split_text = [text for text in split_text if text]  # Filter out empty strings
+
+
 # 13. Tokenization in NLP Pipelines: Integrating tokenization into NLP workflows.
 # 14. Tokenization in Text Processing: Preprocessing text data for analysis.    
 # 15. Tokenization in Data Science: Preparing text data for data analysis and visualization.
