@@ -137,3 +137,90 @@ X, y = spiral_data(samples=100, classes=3)
 import matplotlib.pyplot as plt
 plt.scatter(X[:, 0], X[:, 1], c=y, cmap='brg')
 plt.show()
+
+
+# Example:
+
+inputs = [1, 2, 3, 2.5] 
+ 
+weights1 = [0.2, 0.8, -0.5, 1] 
+weights2 = [0.5, -0.91, 0.26, -0.5] 
+weights3 = [-0.26, -0.27, 0.17, 0.87] 
+ 
+bias1 = 2 
+bias2 = 3 
+bias3 = 0.5 
+ 
+outputs = [ 
+        # Neuron 1: 
+        inputs[0]*weights1[0] + 
+        inputs[1]*weights1[1] + 
+        inputs[2]*weights1[2] + 
+        inputs[3]*weights1[3] + bias1, 
+ 
+        # Neuron 2: 
+        inputs[0]*weights2[0] + 
+        inputs[1]*weights2[1] + 
+        inputs[2]*weights2[2] + 
+        inputs[3]*weights2[3] + bias2, 
+ 
+        # Neuron 3: 
+        inputs[0]*weights3[0] + 
+        inputs[1]*weights3[1] + 
+        inputs[2]*weights3[2] + 
+        inputs[3]*weights3[3] + bias3] 
+ 
+print(outputs)  # Output: [4.8, 1.21, 2.385]
+
+inputs = [1, 2, 3, 2.5] 
+weights = [[0.2, 0.8, -0.5, 1], 
+           [0.5, -0.91, 0.26, -0.5], 
+           [-0.26, -0.27, 0.17, 0.87]] 
+biases = [2, 3, 0.5] 
+ 
+# Output of current layer 
+layer_outputs = [] 
+# For each neuron 
+for neuron_weights, neuron_bias in zip(weights, biases): 
+    # Zeroed output of given neuron 
+    neuron_output = 0 
+    # For each input and weight to the neuron 
+    for n_input, weight in zip(inputs, neuron_weights): 
+        # Multiply this input by associated weight 
+        # and add to the neuron’s output variable 
+        neuron_output += n_input*weight 
+    # Add bias 
+    neuron_output += neuron_bias 
+    # Put neuron’s result to the layer’s output list 
+    layer_outputs.append(neuron_output) 
+ 
+print(layer_outputs) # Output: [4.8, 1.21, 2.385]
+
+
+a = [1,2,3] 
+b = [2,3,4] 
+
+dot_product = a[0]*b[0] + a[1]*b[1] + a[2]*b[2] 
+print(dot_product)
+
+
+import numpy as np 
+
+
+inputs = [1.0, 2.0, 3.0, 2.5] 
+weights = [0.2, 0.8, -0.5, 1.0] 
+bias = 2.0 
+outputs = np.dot(weights, inputs) + bias 
+print(outputs) # Output: 4.8
+
+
+# Example of a simple neural network layer with 3 neurons
+# Each neuron has 4 inputs
+inputs = [1.0, 2.0, 3.0, 2.5] 
+weights = [[0.2, 0.8, -0.5, 1], 
+[0.5, -0.91, 0.26, -0.5], 
+[-0.26, -0.27, 0.17, 0.87]] 
+biases = [2.0, 3.0, 0.5] 
+layer_outputs = np.dot(weights, inputs) + biases 
+
+print(layer_outputs)
